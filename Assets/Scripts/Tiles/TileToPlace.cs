@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using Tower;
-
-namespace Tiles
+﻿namespace Tiles
 {
     public class TileToPlace : Tile
     {

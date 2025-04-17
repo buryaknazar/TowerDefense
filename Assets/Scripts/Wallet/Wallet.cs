@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -10,7 +9,7 @@ namespace Wallet
         [SerializeField] private TMP_Text _moneyText;
         [SerializeField] private float _delay;
         
-        private int _moneyValue;
+        private int _moneyValue = 100;
         
         public int MoneyValue => _moneyValue;
 
