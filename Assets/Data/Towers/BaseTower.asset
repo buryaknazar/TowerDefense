@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962f841dcc49405d8c6bfe5266147652, type: 3}
   m_Name: BaseTower
   m_EditorClassIdentifier: 
-  _shootRadius: 3
-  _shootDelay: 1
-  _shootForce: 3
+  _shootRadius: 5
+  _shootDelay: 0.6
+  _shootForce: 200
   _projectile: {fileID: 8094438454363436343, guid: 0bcab5d2f70fa404fa21f68b27a07279, type: 3}
+  _shootValueOffset: 0.6

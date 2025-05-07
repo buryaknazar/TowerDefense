@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3334070820087480551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.768, z: 0}
+  m_LocalPosition: {x: 0, y: 0.768, z: -0.003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towerData: {fileID: 11400000, guid: 9e01a3288ee50ab459e0ff14af9d8ea1, type: 2}
-  _projectileSpawnPoint: {fileID: 4014323377083211619, guid: 0bcab5d2f70fa404fa21f68b27a07279, type: 3}
+  _projectileSpawnPoint: {fileID: 8753803523075067181}
 --- !u!114 &1251733391888264451
 MonoBehaviour:
   m_ObjectHideFlags: 0

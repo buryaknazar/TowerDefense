@@ -43,6 +43,7 @@ namespace Enemy
                 if (enemy != null)
                 {
                     enemy.gameObject.SetActive(true);
+                    ResetEnemy(enemy);
                     _enemies.Add(enemy);
                 }
                 else
@@ -51,6 +52,13 @@ namespace Enemy
                     newEnemy.gameObject.SetActive(true);
                 }
             }
+        }
+
+        private void ResetEnemy(EnemyUnit enemyUnit)
+        {
+            enemyUnit.transform.position = _spawnPoint.position;
+            enemyUnit.transform.rotation = _spawnPoint.rotation;
+            enemyUnit.ResetEnemyValues();
         }
 
         private EnemyUnit GetInactiveEnemy()

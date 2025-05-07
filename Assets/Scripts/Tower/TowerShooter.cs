@@ -27,7 +27,7 @@ namespace Tower
         private void Shoot(Projectile projectile, Vector3 shootDirection, float shootForce)
         {
             var newProjectile = Instantiate(projectile, _tower.ProjectileSpawnPoint.position, Quaternion.identity);
-            projectile.Rigidbody.AddForce(shootDirection * shootForce, ForceMode.Acceleration);
+            newProjectile.Rigidbody.AddForce(shootDirection * shootForce, ForceMode.Acceleration);
         }
     }
 }

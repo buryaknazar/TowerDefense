@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Tower
 {
@@ -8,5 +10,10 @@ namespace Tower
         [SerializeField] private Rigidbody _rigidbody;
         
         public Rigidbody Rigidbody => _rigidbody;
+
+        private void OnCollisionEnter(Collision other)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

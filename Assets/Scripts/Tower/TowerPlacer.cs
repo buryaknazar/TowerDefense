@@ -6,12 +6,29 @@ namespace Tower
 {
     public class TowerPlacer : MonoBehaviour
     {
+        public static TowerPlacer Instance;
+        
         [SerializeField] private Tower _towerTemplate;
         [SerializeField] private SpawnButton _spawnButton;
         [SerializeField] private Wallet.Wallet _wallet;
         
         private Tower _activeTower;
         private bool _towerSpawned;
+        private bool _towerPlaced;
+        
+        public bool TowerPlaced => _towerPlaced;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void OnEnable()
         {
@@ -38,6 +55,7 @@ namespace Tower
                         tile.SetPlacedTower(_activeTower);
                         _activeTower = null;
                         _towerSpawned = false;
+                        _towerPlaced = true;
                     }
                 }
                 else
@@ -58,6 +76,7 @@ namespace Tower
             {
                 _activeTower = Instantiate(_towerTemplate, SpawnPosition(), Quaternion.identity);
                 _towerSpawned = true;
+                _towerPlaced = false;
                 
                 _wallet.SpendMoney(100);
             }

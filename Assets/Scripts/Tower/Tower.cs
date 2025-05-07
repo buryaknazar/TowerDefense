@@ -30,17 +30,41 @@ namespace Tower
         {
             _attackTimer += Time.deltaTime;
             
-            if (!_currentTarget)
+            if (!_currentTarget && TowerPlacer.Instance.TowerPlaced)
             {
                 _currentTarget = _enemyDetector.DetectEnemy(transform.position, _towerData.ShootRadius);
             }
-            else if (_currentTarget && _attackTimer >= _towerData.ShootDelay)
+
+            if (_currentTarget && _currentTarget.IsDead)
             {
-                _attackTimer = 0;
-                
-                var shootDirection = _currentTarget.transform.position - _projectileSpawnPoint.transform.position;
-                
-                OnEnemyDetected?.Invoke(shootDirection);
+                _currentTarget = null;
+                return;
+            }
+            
+            if (_currentTarget)
+            {
+                Vector3 directionToTarget = _currentTarget.transform.position - transform.position;
+                directionToTarget.y = 0;
+
+                if (directionToTarget != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+                    float rotationSpeed = 180f;
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
+
+                if (_attackTimer >= _towerData.ShootDelay)
+                {
+                    _attackTimer = 0;
+                    var pointToHitEnemy = new Vector3(_currentTarget.transform.position.x, _currentTarget.transform.position.y + _towerData.ShootValueOffset, _currentTarget.transform.position.z);
+                    Vector3 shootDirection = pointToHitEnemy - _projectileSpawnPoint.transform.position;
+                    OnEnemyDetected?.Invoke(shootDirection);
+
+                    if (!_enemyDetector.IsEnemyInRange(transform.position, _towerData.ShootRadius, _currentTarget))
+                    {
+                        _currentTarget = null;
+                    }
+                }
             }
         }
 
