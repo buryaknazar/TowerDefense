@@ -1,6 +1,8 @@
 ﻿using Tiles;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Wallet;
 
 namespace Tower
 {
@@ -10,7 +12,7 @@ namespace Tower
         
         [SerializeField] private Tower _towerTemplate;
         [SerializeField] private SpawnButton _spawnButton;
-        [SerializeField] private Wallet.Wallet _wallet;
+        [SerializeField] private WalletSystem walletSystem;
         
         private Tower _activeTower;
         private bool _towerSpawned;
@@ -72,13 +74,13 @@ namespace Tower
 
         private void OnButtonClick()
         {
-            if (_wallet.MoneyValue >= 100 && _activeTower == null)
+            if (walletSystem.MoneyValue >= 100 && _activeTower == null)
             {
                 _activeTower = Instantiate(_towerTemplate, SpawnPosition(), Quaternion.identity);
                 _towerSpawned = true;
                 _towerPlaced = false;
                 
-                _wallet.SpendMoney(100);
+                walletSystem.SpendMoney(100);
             }
         }
 

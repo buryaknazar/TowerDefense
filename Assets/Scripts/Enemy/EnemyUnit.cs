@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
+using General;
 using Player;
 using SO;
 using Tower;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace Enemy
 {
@@ -12,6 +15,10 @@ namespace Enemy
     {
         [SerializeField] private EnemyScriptableObject _enemyData;
         [SerializeField] private NavMeshAgent _agent;
+        [SerializeField] private Transform _healthBarParent;
+        [SerializeField] private Transform _healthBarLine;
+
+        private HealthBar _enemyHealthBar;
         
         private EnemyMover _mover;
         private Transform _targetPoint;
@@ -21,10 +28,13 @@ namespace Enemy
         private bool _isDead;
         
         public bool IsDead => _isDead;
+        
+        public event UnityAction<int> OnDeath;
 
         private void Awake()
         {
             _mover = new EnemyMover();
+            _enemyHealthBar = new HealthBar();
             _targetPoint = PlayerBase.Instance.PlayerBasePoint;
 
             _maxHealth = _enemyData.Health;
@@ -37,6 +47,13 @@ namespace Enemy
         private void OnEnable()
         {
             _mover.Move(_agent, _targetPoint);
+            ResetEnemyValues();
+            _enemyHealthBar.ChangeHealthBar(_currentHealth, _maxHealth, _healthBarLine);
+        }
+
+        private void Update()
+        {
+            _enemyHealthBar.LookAtCamera(_healthBarParent);
         }
 
         public void ResetEnemyValues()
@@ -45,17 +62,57 @@ namespace Enemy
             _isDead = false;
         }
 
+        private void Die()
+        {
+            _isDead = true;
+            StopAllCoroutines();
+            OnDeath?.Invoke(_enemyData.RewardForKill);
+            gameObject.SetActive(false);
+        }
+
         private void OnCollisionEnter(Collision other)
         {
             if (other.transform.TryGetComponent(out Projectile projectile))
             {
                 _currentHealth--;
+                _enemyHealthBar.ChangeHealthBar(_currentHealth, _maxHealth, _healthBarLine);
 
                 if (_currentHealth <= 0)
                 {
-                    gameObject.SetActive(false);
-                    _isDead = true;
+                    Die();
                 }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerBase playerBase))
+            {
+                if (playerBase.gameObject.activeSelf)
+                {
+                    StartCoroutine(Attack(playerBase));
+                }
+                else
+                {
+                    StopCoroutine(Attack(playerBase));
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerBase playerBase))
+            {
+                StopCoroutine(Attack(playerBase));
+            }
+        }
+
+        private IEnumerator Attack(PlayerBase playerBase)
+        {
+            while (true)
+            {
+                playerBase.TakeDamage(_enemyData.Damage);
+                yield return new WaitForSeconds(_enemyData.AttackDelay);
             }
         }
     }

@@ -256,6 +256,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8516103681205127150, guid: cb3a6588d2f48274e97145208cf9b69e, type: 3}
   m_PrefabInstance: {fileID: 1691613955}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &218431546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2773587786971640246, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
+  m_PrefabInstance: {fileID: 4016294939362172357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0894a28537b99744fa32d6fb180e4e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &232231034 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8516103681205127150, guid: cb3a6588d2f48274e97145208cf9b69e, type: 3}
@@ -682,7 +693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerTemplate: {fileID: 6934498663179510962, guid: a3a960a86092db14c8d14520908ced91, type: 3}
   _spawnButton: {fileID: 1331530142}
-  _wallet: {fileID: 330585549}
+  walletSystem: {fileID: 330585549}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,8 +706,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb21359bd72d815409f24232fb8ca000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyBase: {fileID: 218431546}
   _moneyText: {fileID: 838885385}
-  _delay: 1
+  _delay: 3
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,29 +1397,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8516103681205127150, guid: cb3a6588d2f48274e97145208cf9b69e, type: 3}
   m_PrefabInstance: {fileID: 601111795}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &618786923 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8776181140557707855, guid: 9f98e1598a8ae7a4a9d8d0755caab751, type: 3}
-  m_PrefabInstance: {fileID: 9071802324126426414}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &618786924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1619556648366895812, guid: 9f98e1598a8ae7a4a9d8d0755caab751, type: 3}
   m_PrefabInstance: {fileID: 9071802324126426414}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &618786925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618786923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e5d7e4de6b140ffbeea330f856e1047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerBasePoint: {fileID: 1402775508}
 --- !u!1 &714788722
 GameObject:
   m_ObjectHideFlags: 0
@@ -4435,9 +4429,13 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2773587786971640246, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
+      propertyPath: _walletSystem
+      value: 
+      objectReference: {fileID: 330585549}
+    - target: {fileID: 2773587786971640246, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
       propertyPath: _enemyTemplate
       value: 
-      objectReference: {fileID: 3139959153842467449, guid: 770b9102424e38c4599cf783d5980cdd, type: 3}
+      objectReference: {fileID: 2454291008892795788, guid: 04172d972356b7243ab91397459ee368, type: 3}
     - target: {fileID: 4959987777719919647, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
       propertyPath: m_Name
       value: EnemyBase
@@ -4570,10 +4568,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1619556648366895812, guid: 9f98e1598a8ae7a4a9d8d0755caab751, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1402775508}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8776181140557707855, guid: 9f98e1598a8ae7a4a9d8d0755caab751, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 618786925}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f98e1598a8ae7a4a9d8d0755caab751, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

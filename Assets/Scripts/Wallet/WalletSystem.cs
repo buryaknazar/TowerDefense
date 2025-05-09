@@ -1,17 +1,42 @@
+using System;
 using System.Collections;
+using Enemy;
 using TMPro;
 using UnityEngine;
 
 namespace Wallet
 {
-    public class Wallet : MonoBehaviour
+    public class WalletSystem : MonoBehaviour
     {
+        [SerializeField] private EnemyBase _enemyBase;
         [SerializeField] private TMP_Text _moneyText;
         [SerializeField] private float _delay;
         
         private int _moneyValue = 100;
         
         public int MoneyValue => _moneyValue;
+
+        private void OnEnable()
+        {
+            // foreach (var enemy in _enemyBase.Enemies)
+            // {
+            //     enemy.OnDeath += OnEnemyDeath;
+            // }
+        }
+
+        private void OnDisable()
+        {
+            foreach (var enemy in _enemyBase.Enemies)
+            {
+                enemy.OnDeath -= OnEnemyDeath;
+            }
+        }
+
+        public void OnEnemyDeath(int rewardValue)
+        {
+            AddMoney(rewardValue);
+            print("add money");
+        }
 
         private void Start()
         {

@@ -9,10 +9,12 @@ namespace SO
         [SerializeField] private float _speed;
         [SerializeField] private int _damage;
         [SerializeField] private int _rewardForKill;
+        [SerializeField] private float _attackDelay;
         
         public int Health => _health;
         public float Speed => _speed;
         public int Damage => _damage;
         public int RewardForKill => _rewardForKill;
+        public float AttackDelay => _attackDelay;
     }
 }
