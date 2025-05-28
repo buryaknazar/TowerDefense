@@ -47,8 +47,8 @@ namespace Enemy
 
                 if (enemy != null)
                 {
-                    enemy.gameObject.SetActive(true);
                     ResetEnemy(enemy);
+                    enemy.gameObject.SetActive(true);
                     _enemies.Add(enemy);
                 }
                 else

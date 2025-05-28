@@ -35,7 +35,6 @@ namespace Wallet
         public void OnEnemyDeath(int rewardValue)
         {
             AddMoney(rewardValue);
-            print("add money");
         }
 
         private void Start()
