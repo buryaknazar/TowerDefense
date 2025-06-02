@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: -8206828074088835187}
+  _towerData: {fileID: 11400000, guid: cd4ee2d2e53bd99449571d5bf0f1a384, type: 2}
 --- !u!136 &-7533951691203267082
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ namespace UI
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private Slider _sfxVolumeSlider;
 
-        private void Awake()
+        private void Start()
         {
             _musicToggle.isOn = !GameSound.Instance.GetToggleValue(_musicToggle.name);
             _sfxToggle.isOn = !GameSound.Instance.GetToggleValue(_sfxToggle.name);
@@ -29,23 +29,23 @@ namespace UI
             
             _musicToggle.onValueChanged.AddListener(_ =>
             {
-                GameSound.Instance.SetToggle(_musicToggle.name, !_musicToggle.isOn);
+                GameSound.Instance.SetMusicToggle(_musicToggle.isOn);
             });
             
             _sfxToggle.onValueChanged.AddListener(_ =>
             {
-                GameSound.Instance.SetToggle(_sfxToggle.name, !_sfxToggle.isOn);
+                GameSound.Instance.SetSfxToggle(_sfxToggle.isOn);
             });
             
             
             _musicVolumeSlider.onValueChanged.AddListener(_ =>
             {
-                GameSound.Instance.SetSlider(_musicVolumeSlider.name, _musicVolumeSlider.value);
+                GameSound.Instance.SetMusicVolume(_musicVolumeSlider.value);
             });
             
             _sfxVolumeSlider.onValueChanged.AddListener(_ =>
             {
-                GameSound.Instance.SetSlider(_sfxVolumeSlider.name, _sfxVolumeSlider.value);
+                GameSound.Instance.SetSfxVolume(_sfxVolumeSlider.value);
             });
         }
 

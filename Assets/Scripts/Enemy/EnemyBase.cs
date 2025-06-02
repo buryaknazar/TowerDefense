@@ -32,7 +32,7 @@ namespace Enemy
             var newEnemy = Instantiate(_enemyTemplate, _spawnPoint.position, _spawnPoint.rotation, transform);
             newEnemy.gameObject.SetActive(false);
             _enemies.Add(newEnemy);
-            newEnemy.OnDeath += _walletSystem.OnEnemyDeath;
+            newEnemy.OnEnemyDied += _walletSystem.OnEnemyDeath;
 
             return newEnemy;
         }

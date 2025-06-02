@@ -9,7 +9,7 @@ namespace UI
     {
         [SerializeField] private Button _button;
         
-        public event UnityAction ButtonOnClick;
+        public UnityAction ButtonOnClick;
 
         private void OnEnable()
         {
@@ -21,9 +21,11 @@ namespace UI
             _button.onClick.RemoveAllListeners();
         }
 
-        private void OnClick()
+        protected virtual void OnClick()
         {
-            GameSound.Instance.PlaySfx();
+            var sfxClip = GameSound.Instance.GameSoundData.Sfx;
+            GameSound.Instance.PlaySfx(sfxClip);
+            
             ButtonOnClick?.Invoke();
         }
     }

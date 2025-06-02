@@ -1,4 +1,5 @@
-﻿using Tiles;
+﻿using System.Collections.Generic;
+using Tiles;
 using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,7 +12,7 @@ namespace Tower
         public static TowerPlacer Instance;
         
         [SerializeField] private Tower _towerTemplate;
-        [SerializeField] private SpawnButton _spawnButton;
+        [SerializeField] private List<SpawnButton> _spawnButtons;
         [SerializeField] private WalletSystem walletSystem;
         
         private Tower _activeTower;
@@ -34,7 +35,11 @@ namespace Tower
 
         private void OnEnable()
         {
-            _spawnButton.ButtonOnClick += OnButtonClick;
+            foreach (var button in _spawnButtons)
+            {
+                var towerPrefab = button.TowerToPlace;
+                button.ButtonOnClick = () => OnButtonClick(towerPrefab);
+            }
         }
 
         private void Update()
@@ -69,18 +74,21 @@ namespace Tower
 
         private void OnDisable()
         {
-            _spawnButton.ButtonOnClick -= OnButtonClick;
+            foreach (var button in _spawnButtons)
+            {
+                button.ButtonOnClick = null;
+            }
         }
 
-        private void OnButtonClick()
+        private void OnButtonClick(Tower towerPrefab)
         {
-            if (walletSystem.MoneyValue >= 100 && _activeTower == null)
+            if (walletSystem.MoneyValue >= towerPrefab.TowerData.Price && _activeTower == null)
             {
-                _activeTower = Instantiate(_towerTemplate, SpawnPosition(), Quaternion.identity);
+                _activeTower = Instantiate(towerPrefab, SpawnPosition(), Quaternion.identity);
                 _towerSpawned = true;
                 _towerPlaced = false;
                 
-                walletSystem.SpendMoney(100);
+                walletSystem.SpendMoney(towerPrefab.TowerData.Price);
             }
         }
 

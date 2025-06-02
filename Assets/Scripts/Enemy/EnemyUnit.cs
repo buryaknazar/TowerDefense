@@ -29,7 +29,9 @@ namespace Enemy
         
         public bool IsDead => _isDead;
         
-        public event UnityAction<int> OnDeath;
+        public event UnityAction<int> OnEnemyDied;
+        public event UnityAction OnEnemyAttack;
+        public event UnityAction OnEnemyHit;
 
         private void Awake()
         {
@@ -66,15 +68,20 @@ namespace Enemy
         {
             _isDead = true;
             StopAllCoroutines();
-            OnDeath?.Invoke(_enemyData.RewardForKill);
-            gameObject.SetActive(false);
+            OnEnemyDied?.Invoke(_enemyData.RewardForKill);
+        }
+
+        private void TakeDamage(int damage)
+        {
+            _currentHealth -= damage;
         }
 
         private void OnCollisionEnter(Collision other)
         {
             if (other.transform.TryGetComponent(out Projectile projectile))
             {
-                _currentHealth--;
+                OnEnemyHit?.Invoke();
+                TakeDamage(projectile.TowerData.ShootDamage);
                 _enemyHealthBar.ChangeHealthBar(_currentHealth, _maxHealth, _healthBarLine);
 
                 if (_currentHealth <= 0)
@@ -111,6 +118,7 @@ namespace Enemy
         {
             while (true)
             {
+                OnEnemyAttack?.Invoke();
                 playerBase.TakeDamage(_enemyData.Damage);
                 yield return new WaitForSeconds(_enemyData.AttackDelay);
             }

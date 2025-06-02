@@ -1,12 +1,17 @@
 ﻿using System;
 using Enemy;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tower
 {
     public class TowerShooter : MonoBehaviour
     {
         [SerializeField] private Tower _tower;
+        
+        public Tower Tower => _tower;
+        
+        public event UnityAction OnTowerShooted;
 
         private void OnEnable()
         {
@@ -26,8 +31,10 @@ namespace Tower
 
         private void Shoot(Projectile projectile, Vector3 shootDirection, float shootForce)
         {
-            var newProjectile = Instantiate(projectile, _tower.ProjectileSpawnPoint.position, Quaternion.identity);
+            var newProjectile = Instantiate(projectile, _tower.ProjectileSpawnPoint.position, Quaternion.LookRotation(shootDirection));
             newProjectile.Rigidbody.AddForce(shootDirection * shootForce, ForceMode.Acceleration);
+            
+            OnTowerShooted?.Invoke();
         }
     }
 }

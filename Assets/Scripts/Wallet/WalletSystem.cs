@@ -28,7 +28,7 @@ namespace Wallet
         {
             foreach (var enemy in _enemyBase.Enemies)
             {
-                enemy.OnDeath -= OnEnemyDeath;
+                enemy.OnEnemyDied -= OnEnemyDeath;
             }
         }
 

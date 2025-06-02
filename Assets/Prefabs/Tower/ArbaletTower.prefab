@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 4774584850214642358}
   - component: {fileID: 7197348430851383463}
   - component: {fileID: 6775648515295720732}
+  - component: {fileID: 647801577439609796}
   m_Layer: 0
   m_Name: ArbaletTower
   m_TagString: Untagged
@@ -125,6 +126,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tower: {fileID: 7197348430851383463}
+--- !u!114 &647801577439609796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5616355787106583202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855c99dd852743da8a9f9abc78ca3559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towerShooter: {fileID: 6775648515295720732}
 --- !u!1001 &7403363997688555799
 PrefabInstance:
   m_ObjectHideFlags: 0

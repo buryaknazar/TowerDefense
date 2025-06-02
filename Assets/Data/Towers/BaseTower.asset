@@ -15,5 +15,9 @@ MonoBehaviour:
   _shootRadius: 5
   _shootDelay: 0.6
   _shootForce: 200
+  _shootDamage: 5
+  _price: 50
   _projectile: {fileID: 8094438454363436343, guid: 0bcab5d2f70fa404fa21f68b27a07279, type: 3}
   _shootValueOffset: 0.6
+  _projectileSound: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+  _towerIcon: {fileID: 21300000, guid: d464eb3130b0f0743a7681d2c4e0c7db, type: 3}

@@ -11,6 +11,13 @@ namespace Sound
         [SerializeField] private AudioSource _musicAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;
 
+        private readonly string _musicToogle = "MusicToggle";
+        private readonly string _sfxToogle = "SFXToggle";
+        private readonly string _musicSlider = "MusicSlider";
+        private readonly string _sfxSlider = "SFXSlider";
+        
+        public GameSoundScriptableObject GameSoundData => _gameSoundData;
+
         private void Awake()
         {
             if (Instance == null)
@@ -22,66 +29,85 @@ namespace Sound
                 Destroy(gameObject);
             }
             
-            SetToggle("MusicToggle", false);
-            SetToggle("SFXToggle", false);
-            SetSlider("MusicSlider", 0.5f);
-            SetSlider("SFXSlider", 0.75f);
-
-            PlayMusic();
+            SetMusicToggle(true);
+            SetSfxToggle(true);
+            SetMusicVolume(0.3f);
+            SetSfxVolume(0.5f);
+            
+            PlayMusic(_gameSoundData.MusicPhase1);
+            PlaySfx(_gameSoundData.Sfx);
             
             DontDestroyOnLoad(gameObject);
         }
 
-        public void PlayMusic()
+        public void PlayMusic(AudioClip clip)
         {
-            _musicAudioSource.clip = _gameSoundData.MusicPhase1;
+            _musicAudioSource.clip = clip;
+            _musicAudioSource.playOnAwake = true;
+            _musicAudioSource.loop = true;
             
-            _musicAudioSource.mute = GetToggleValue("MusicToggle");
-            _musicAudioSource.volume = GetSliderValue("SFXToggle");
+            _musicAudioSource.mute = GetToggleValue(_musicToogle);
+            _musicAudioSource.volume = GetSliderValue(_musicSlider);
             
             _musicAudioSource.Play();
         }
 
-        public void PlaySfx()
+        public void PlaySfx(AudioClip clip)
         {
-            _sfxAudioSource.clip = _gameSoundData.Sfx;
+            _sfxAudioSource.clip = clip;
             
-            _sfxAudioSource.mute = GetToggleValue("SFXToggle");
-            _sfxAudioSource.volume = GetSliderValue("SFXSlider");
+            _sfxAudioSource.mute = GetToggleValue(_sfxToogle);
+            _sfxAudioSource.volume = GetSliderValue(_sfxSlider);
             
             _sfxAudioSource.Play();
         }
-        
-        public void SetToggle(string toggleName, bool value)
+
+        public void SetMusicToggle(bool toggleValue)
         {
-            _musicAudioSource.mute = value;
-            SaveSoundToggle(toggleName, value ? 1 : 0);
+            _musicAudioSource.mute = !toggleValue;
+
+            SaveSoundToggle(_musicToogle, toggleValue ? 0 : 1);
         }
 
-        public void SetSlider(string sliderName, float value)
+        public void SetSfxToggle(bool toggleValue)
+        {
+            _sfxAudioSource.mute = toggleValue;
+            
+            SaveSoundToggle(_sfxToogle, toggleValue ? 0 : 1);
+        }
+
+        public void SetMusicVolume(float value)
         {
             _musicAudioSource.volume = value;
-            SaveSliderValue(sliderName, value);
+            
+            SaveSliderValue(_musicSlider, value);
         }
         
-        public bool GetToggleValue(string toggleName)
+        public void SetSfxVolume(float value)
         {
-            return PlayerPrefs.GetInt(toggleName, 1) == 1;
+            _sfxAudioSource.volume = value;
+            
+            SaveSliderValue(_sfxSlider, value);
         }
         
-        public float GetSliderValue(string sliderName)
+        public bool GetToggleValue(string playerPrefsKey)
         {
-            return PlayerPrefs.GetFloat(sliderName, 1);
+            return PlayerPrefs.GetInt(playerPrefsKey, 1) == 1;
+        }
+        
+        public float GetSliderValue(string playerPrefsKey)
+        {
+            return PlayerPrefs.GetFloat(playerPrefsKey, 1);
         }
 
-        public void SaveSoundToggle(string toggleName, int value)
+        private void SaveSoundToggle(string playerPrefsKey, int value)
         {
-            PlayerPrefs.SetInt(toggleName, value);
+            PlayerPrefs.SetInt(playerPrefsKey, value);
         }
 
-        public void SaveSliderValue(string sliderName, float value)
+        private void SaveSliderValue(string playerPrefsKey, float value)
         {
-            PlayerPrefs.SetFloat(sliderName, value);
+            PlayerPrefs.SetFloat(playerPrefsKey, value);
         }
     }
 }

@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 4280180003926639665}
+  _towerData: {fileID: 11400000, guid: 9e01a3288ee50ab459e0ff14af9d8ea1, type: 2}
 --- !u!54 &4280180003926639665
 Rigidbody:
   m_ObjectHideFlags: 0
