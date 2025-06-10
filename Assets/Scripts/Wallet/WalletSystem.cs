@@ -16,14 +16,6 @@ namespace Wallet
         
         public int MoneyValue => _moneyValue;
 
-        private void OnEnable()
-        {
-            // foreach (var enemy in _enemyBase.Enemies)
-            // {
-            //     enemy.OnDeath += OnEnemyDeath;
-            // }
-        }
-
         private void OnDisable()
         {
             foreach (var enemy in _enemyBase.Enemies)

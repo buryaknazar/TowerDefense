@@ -1,6 +1,7 @@
 ﻿using System;
 using General;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Player
 {
@@ -15,6 +16,8 @@ namespace Player
         
         private HealthBar _playerBaseHealthBar;
         private int _currentHealth;
+        
+        public event UnityAction OnPlayerBaseDestroyed;
         
         public Transform PlayerBasePoint => _playerBasePoint;
 
@@ -46,6 +49,7 @@ namespace Player
             if (_currentHealth <= 0)
             {
                 gameObject.SetActive(false);
+                OnPlayerBaseDestroyed?.Invoke();
             }
         }
     }

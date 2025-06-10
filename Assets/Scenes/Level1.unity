@@ -402,6 +402,7 @@ MonoBehaviour:
   _levelCanvasGroup: {fileID: 136247942}
   _settingsCanvasGroup: {fileID: 548505389}
   _settingsButton: {fileID: 1783767940}
+  _enemyBase: {fileID: 1569986842}
 --- !u!1001 &148608268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4118,6 +4119,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2773587786971640246, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
+      propertyPath: _wavesData
+      value: 
+      objectReference: {fileID: 11400000, guid: e9a662d8425724248b8e35be7ed56864, type: 2}
+    - target: {fileID: 2773587786971640246, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
       propertyPath: _walletSystem
       value: 
       objectReference: {fileID: 330585549}
@@ -4130,6 +4135,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
+--- !u!114 &1569986842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2773587786971640246, guid: f79d3c9adf5d35947a5e43613ceed655, type: 3}
+  m_PrefabInstance: {fileID: 1569986841}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0894a28537b99744fa32d6fb180e4e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1617471248 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8516103681205127150, guid: cb3a6588d2f48274e97145208cf9b69e, type: 3}

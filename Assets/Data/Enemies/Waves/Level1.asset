@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72bce88a38534a3392a92572459f4603, type: 3}
+  m_Name: Level1
+  m_EditorClassIdentifier: 
+  _waves:
+  - EnemyUnit: {fileID: 2454291008892795788, guid: 04172d972356b7243ab91397459ee368, type: 3}
+    EnemiesCount: 5
+    EnemiesSpawnRate: 1
+    PauseAfterWave: 5
+  - EnemyUnit: {fileID: 3139959153842467449, guid: 770b9102424e38c4599cf783d5980cdd, type: 3}
+    EnemiesCount: 10
+    EnemiesSpawnRate: 0.6
+    PauseAfterWave: 5
+  - EnemyUnit: {fileID: 3139959153842467449, guid: 770b9102424e38c4599cf783d5980cdd, type: 3}
+    EnemiesCount: 20
+    EnemiesSpawnRate: 0.8
+    PauseAfterWave: 5
+  - EnemyUnit: {fileID: 2454291008892795788, guid: 04172d972356b7243ab91397459ee368, type: 3}
+    EnemiesCount: 30
+    EnemiesSpawnRate: 1
+    PauseAfterWave: 10
+  - EnemyUnit: {fileID: 3139959153842467449, guid: 770b9102424e38c4599cf783d5980cdd, type: 3}
+    EnemiesCount: 50
+    EnemiesSpawnRate: 1
+    PauseAfterWave: 5
