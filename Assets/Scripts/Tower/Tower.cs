@@ -15,6 +15,7 @@ namespace Tower
         private EnemyUnit _currentTarget;
 
         private float _attackTimer;
+        private bool _towerPlaced;
 
         public event UnityAction<Vector3> OnEnemyDetected;
         
@@ -30,7 +31,7 @@ namespace Tower
         {
             _attackTimer += Time.deltaTime;
             
-            if (!_currentTarget && TowerPlacer.Instance.TowerPlaced)
+            if (!_currentTarget && _towerPlaced)
             {
                 _currentTarget = _enemyDetector.DetectEnemy(transform.position, _towerData.ShootRadius);
             }
@@ -72,6 +73,11 @@ namespace Tower
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, _towerData.ShootRadius);
+        }
+
+        public void SetTowerPlaced(bool value)
+        {
+            _towerPlaced = value;
         }
     }
 }

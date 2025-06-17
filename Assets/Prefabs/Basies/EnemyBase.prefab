@@ -109,10 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0894a28537b99744fa32d6fb180e4e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyTemplate: {fileID: 2454291008892795788, guid: 04172d972356b7243ab91397459ee368, type: 3}
+  _walletSystem: {fileID: 0}
+  _wavesData: {fileID: 11400000, guid: e9a662d8425724248b8e35be7ed56864, type: 2}
   _spawnPoint: {fileID: 4369425692872079848}
-  _spawnCount: 5
-  _spawnDelay: 2
 --- !u!1001 &7756630553992414775
 PrefabInstance:
   m_ObjectHideFlags: 0

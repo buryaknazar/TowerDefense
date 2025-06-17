@@ -66,6 +66,7 @@ namespace Enemy
 
         private void Die()
         {
+            if (_isDead) return;
             _isDead = true;
             StopAllCoroutines();
             OnEnemyDied?.Invoke(_enemyData.RewardForKill);

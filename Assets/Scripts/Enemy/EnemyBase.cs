@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SO;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Events;
 using Wallet;
@@ -14,9 +14,12 @@ namespace Enemy
         [SerializeField] private WalletSystem _walletSystem;
         [SerializeField] private LevelWavesScriptableObject _wavesData;
         [SerializeField] private Transform _spawnPoint;
+
+        private int _currentWaveEnemiesLeft = 0;
         
         private List<EnemyUnit> _enemies = new List<EnemyUnit>();
         private List<GameObject> _wavesParent = new List<GameObject>();
+        
         private Dictionary<int, List<EnemyUnit>> _wavesInactiveEnemies = new Dictionary<int, List<EnemyUnit>>();
         private Dictionary<int, List<EnemyUnit>> _wavesActiveEnemies = new Dictionary<int, List<EnemyUnit>>();
         
@@ -63,6 +66,7 @@ namespace Enemy
             _wavesInactiveEnemies[waveIndex].Add(newEnemy);
             _wavesActiveEnemies[waveIndex].Add(newEnemy);
             _enemies.Add(newEnemy);
+            newEnemy.OnEnemyDied += OnEnemyDied;
             newEnemy.OnEnemyDied += _walletSystem.OnEnemyDeath;
             OnEnemySpawned?.Invoke(newEnemy);
 
@@ -82,6 +86,9 @@ namespace Enemy
                 var enemiesCount = _wavesData.Waves[i].EnemiesCount;
                 var enemyUnit = _wavesData.Waves[i].EnemyUnit;
                 var enemiesSpawnRate = _wavesData.Waves[i].EnemiesSpawnRate;
+
+                _currentWaveEnemiesLeft = enemiesCount;
+                OnEnemyLeft?.Invoke(enemiesCount);
                 
                 for (int j = 0; j < enemiesCount; j++)
                 {
@@ -100,7 +107,6 @@ namespace Enemy
             var spawnTimer = 0f;
             
             OnWaveActivated?.Invoke(waveIndex, _wavesData.Waves.Count);
-            OnEnemyLeft?.Invoke(enemiesCount);
 
             while (spawned < enemiesCount)
             {
@@ -123,7 +129,6 @@ namespace Enemy
                     }
                     
                     spawned++;
-                    OnEnemyLeft?.Invoke(enemiesCount - spawned);
                 }
                 
                 yield return null;
@@ -146,12 +151,6 @@ namespace Enemy
 
                 OnPauseAfterWaveStarted?.Invoke(0f, false);
             }
-        }
-
-        private void ResetEnemy(EnemyUnit enemyUnit)
-        {
-            enemyUnit.transform.position = _spawnPoint.position;
-            enemyUnit.transform.rotation = _spawnPoint.rotation;
         }
 
         private IEnumerator WaitUntilAllEnemiesDied()
@@ -188,6 +187,12 @@ namespace Enemy
             }
             
             return null;
+        }
+
+        private void OnEnemyDied(int rewardForKill)
+        {
+            _currentWaveEnemiesLeft--;
+            OnEnemyLeft?.Invoke(_currentWaveEnemiesLeft);
         }
     }
 }

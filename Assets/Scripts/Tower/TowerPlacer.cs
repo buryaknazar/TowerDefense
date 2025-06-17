@@ -17,9 +17,6 @@ namespace Tower
         
         private Tower _activeTower;
         private bool _towerSpawned;
-        private bool _towerPlaced;
-        
-        public bool TowerPlaced => _towerPlaced;
 
         private void Awake()
         {
@@ -58,11 +55,11 @@ namespace Tower
 
                     if (Input.GetMouseButtonDown(0))
                     {
+                        _activeTower.SetTowerPlaced(true);
                         tile.Filled();
                         tile.SetPlacedTower(_activeTower);
                         _activeTower = null;
                         _towerSpawned = false;
-                        _towerPlaced = true;
                     }
                 }
                 else
@@ -86,7 +83,7 @@ namespace Tower
             {
                 _activeTower = Instantiate(towerPrefab, SpawnPosition(), Quaternion.identity);
                 _towerSpawned = true;
-                _towerPlaced = false;
+                _activeTower.SetTowerPlaced(false);
                 
                 walletSystem.SpendMoney(towerPrefab.TowerData.Price);
             }
